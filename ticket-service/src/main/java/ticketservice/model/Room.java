@@ -1,8 +1,16 @@
 package ticketservice.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "room")
@@ -11,7 +19,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Room{
+public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,7 +31,7 @@ public class Room{
 
     @Override
     public String toString() {
-        return "Room "+name + " with "+rows*columns+" seats, "+rows+" rows and "+
-            columns+" columns.";
+        return "Room " + name + " with " + rows * columns + " seats, " + rows + " rows and "
+                + columns + " columns.";
     }
 }

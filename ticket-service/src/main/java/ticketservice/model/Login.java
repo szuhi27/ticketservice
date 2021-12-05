@@ -12,36 +12,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Objects;
-
-
 
 @Entity
-@Table(name = "account")
+@Table(name = "login")
 @Data
 @Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Account {
+public class Login {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private String username;
-    private String passw;
-    private AccountRole accountRole;
+    private String uname;
+    private AccountRole role;
 
-    public Account(String username, String passw,AccountRole role) {
-        this.username = username;
-        this.passw = passw;
-        this.accountRole = role;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(username, passw);
+    public Login(String uname, AccountRole role) {
+        this.uname = uname;
+        this.role = role;
     }
 }

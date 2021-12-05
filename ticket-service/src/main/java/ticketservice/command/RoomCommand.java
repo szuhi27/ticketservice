@@ -7,39 +7,40 @@ import ticketservice.exception.AlreadyExistsException;
 import ticketservice.exception.DoesNotExistsException;
 import ticketservice.exception.NotAdminException;
 import ticketservice.model.Movie;
+import ticketservice.model.Room;
 import ticketservice.service.AccountService;
-import ticketservice.service.MovieService;
+import ticketservice.service.RoomService;
 
 @ShellComponent
 @RequiredArgsConstructor
-public class MovieCommand {
+public class RoomCommand {
 
-    private final MovieService movieService;
+    private final RoomService roomService;
     private final AccountService accountService;
 
-    @ShellMethod(value = "create a movie", key = "create movie")
-    public String createMovie(String title, String genre, int length) {
+    @ShellMethod(value = "create a room", key = "create room")
+    public String createMovie(String name, int rows , int columns) {
         try {
             accountService.isAdmin();
             try {
-                Movie movie = movieService.movieCreator(title, genre, length);
-                movieService.createMovie(movie);
+                Room room = roomService.roomCreator(name, rows, columns);
+                roomService.createRoom(room);
             } catch (AlreadyExistsException e) {
                 return e.getMessage();
             }
         } catch (NotAdminException b) {
             return b.getMessage();
         }
-        return new String(title + " movie created");
+        return new String(name + " room created");
     }
 
-    @ShellMethod(value = "update a movie", key = "update movie")
-    public String updateMovie(String title, String genre, int length) {
+    @ShellMethod(value = "update a room", key = "update room")
+    public String updateRoom(String name, int rows , int columns) {
         try {
             accountService.isAdmin();
             try {
-                Movie movie = movieService.movieCreator(title, genre, length);
-                movieService.updateMovie(movie);
+                Room room = roomService.roomCreator(name, rows, columns);
+                roomService.updateRoom(room);
             } catch (DoesNotExistsException e) {
                 return e.getMessage();
             }
@@ -47,34 +48,35 @@ public class MovieCommand {
         } catch (NotAdminException e) {
             return e.getMessage();
         }
-        return new String(title + " movie updated");
+        return new String(name + " room updated");
     }
 
-    @ShellMethod(value = "delete a movie", key = "delete movie")
-    public String deleteMovie(String title) {
+    @ShellMethod(value = "delete a room", key = "delete room")
+    public String deleteRoom(String name) {
         try {
             accountService.isAdmin();
             try {
-                movieService.deleteMovie(title);
+                roomService.deleteRoom(name);
             } catch (DoesNotExistsException e) {
                 return e.getMessage();
             }
         } catch (NotAdminException e) {
             return e.getMessage();
         }
-        return new String(title + " movie deleted");
+        return new String(name + " room deleted");
     }
 
-    @ShellMethod(value = "delete a movie", key = "list movies")
-    public String listMovie() {
+    @ShellMethod(value = "delete a room", key = "list rooms")
+    public String listRooms() {
         StringBuilder sb = new StringBuilder();
 
-        if (!movieService.listMovies().isEmpty()) {
-            movieService.listMovies().forEach(x -> sb.append(x).append("\n"));
+        if (!roomService.listRooms().isEmpty()) {
+            roomService.listRooms().forEach(x -> sb.append(x).append("\n"));
             sb.setLength(sb.length() - 1);
             return sb.toString();
         } else {
-            return "There are no movies at the moment";
+            return "There are no rooms at the moment";
         }
     }
+
 }

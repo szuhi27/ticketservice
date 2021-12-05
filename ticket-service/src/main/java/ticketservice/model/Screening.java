@@ -1,9 +1,18 @@
 package ticketservice.model;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
-import lombok.*;
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "screening")
@@ -12,7 +21,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Screening{
+public class Screening {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,8 +34,8 @@ public class Screening{
     //TODO
     @Override
     public String toString() {
-        return movie+", screened in room "+room+ ", at "
-        + date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        return movie + ", screened in room " + room + ", at "
+            + date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
 }
