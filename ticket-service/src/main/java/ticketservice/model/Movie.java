@@ -1,8 +1,9 @@
 package ticketservice.model;
-import java.util.Objects;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Objects;
+
 
 @Entity
 @Table(name = "movie")

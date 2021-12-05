@@ -35,7 +35,7 @@ public class MovieService {
         if(!movieRepository.existsByTitle(movie.getTitle())){
             throw new DoesNotExistsException(movie.getTitle()+" does not exists!");
         }else{
-            movieRepository.save(movie);
+            movieRepository.update(movie.getTitle(),movie.getGenre(),movie.getLength());
         }
     }
 
