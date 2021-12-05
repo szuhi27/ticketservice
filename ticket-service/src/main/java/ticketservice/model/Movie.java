@@ -25,4 +25,15 @@ public class Movie{
     public String toString() {
         return title + " (" + genre + ", " + length + " minutes)";
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, length, genre);
+    }
+
+    public Movie(String title, String genre, int length){
+        this.title = title;
+        this.genre = genre;
+        this.length = length;
+    }
 }
