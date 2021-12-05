@@ -1,0 +1,3 @@
+# Project exclude paths
+/ticket-service/target/
+/ticket-service-acceptance-tests/target/
