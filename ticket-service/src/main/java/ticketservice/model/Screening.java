@@ -31,7 +31,6 @@ public class Screening {
     private String room;
     private LocalDateTime date;
 
-    //TODO
     @Override
     public String toString() {
         return movie + ", screened in room " + room + ", at "
