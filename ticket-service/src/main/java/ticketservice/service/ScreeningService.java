@@ -37,14 +37,14 @@ public class ScreeningService {
 
     public void createScreening(Screening s) throws DoesNotExistsException {
         String st = checkScreening(s.getMovie(), s.getRoom(), s.getDate());
-        if(Objects.equals(st, "")){
+        if (Objects.equals(st, "")) {
             screeningRepository.save(s);
         } else {
             throw new DoesNotExistsException(st);
         }
     }
 
-    private String  checkScreening(String movie, String room, LocalDateTime date){
+    private String  checkScreening(String movie, String room, LocalDateTime date) {
         String msg = "";
         if (!movieRepository.existsByTitle(movie)) {
             msg = "Movie " + movie + " does not exist!";
@@ -64,26 +64,26 @@ public class ScreeningService {
         return msg;
     }
 
-    private boolean timeCheck(Screening planned, String movie, LocalDateTime currDate){
+    private boolean timeCheck(Screening planned, String movie, LocalDateTime currDate) {
         boolean good = true;
         long dur = Duration.between(planned.getDate(),currDate).toMinutes();
-        if(planned.getDate().isBefore(currDate)){
-            if((int)dur < movieLength(planned.getMovie())+10 ){
+        if (planned.getDate().isBefore(currDate)) {
+            if ((int)dur < movieLength(planned.getMovie()) + 10) {
                 good = false;
             }
         } else {
-            if((int)dur < movieLength(movie)+10){
+            if ((int)dur < movieLength(movie) + 10) {
                 good = false;
             }
         }
         return good;
     }
 
-    private String wrongTimeMsg(Screening planned, String movie, LocalDateTime currDate){
+    private String wrongTimeMsg(Screening planned, String movie, LocalDateTime currDate) {
         String msg = "";
         if (planned.getDate().isBefore(currDate)) {
             long dur = abs(Duration.between(planned.getDate(),currDate).toMinutes());
-            if ((int)dur < movieLength(planned.getMovie())+10) {
+            if ((int)dur < movieLength(planned.getMovie()) + 10) {
                 msg = "This would start in the break period after another screening in this room";
                 if ((int)dur < movieLength(planned.getMovie())) {
                     msg = "There is an overlapping screening";
@@ -91,7 +91,7 @@ public class ScreeningService {
             }
         } else {
             long dur = abs(Duration.between(currDate,planned.getDate()).toMinutes());
-            if ((int)dur < movieLength(movie)+10) {
+            if ((int)dur < movieLength(movie) + 10) {
                 msg = "This would start in the break period after another screening in this room";
                 if ((int)dur < movieLength(movie)) {
                     msg = "There is an overlapping screening";
@@ -101,16 +101,18 @@ public class ScreeningService {
         return msg;
     }
 
-    private int movieLength(String movie){
+    private int movieLength(String movie) {
         Movie currMovie = movieRepository.findByTitle(movie);
         return currMovie.getLength();
     }
 
     public void deleteScreening(Screening screening) throws DoesNotExistsException {
-        if (!screeningRepository.existsByMovieAndRoomAndDate(screening.getMovie(), screening.getRoom(), screening.getDate())) {
+        if (!screeningRepository.existsByMovieAndRoomAndDate(screening.getMovie(), screening.getRoom(),
+                screening.getDate())) {
             throw new DoesNotExistsException("Screening does not exists!");
         } else {
-            screeningRepository.deleteByMovieAndRoomAndDate(screening.getMovie(), screening.getRoom(), screening.getDate());
+            screeningRepository.deleteByMovieAndRoomAndDate(screening.getMovie(), screening.getRoom(),
+                    screening.getDate());
         }
     }
 

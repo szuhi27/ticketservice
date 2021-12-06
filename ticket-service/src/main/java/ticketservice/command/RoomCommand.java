@@ -19,7 +19,7 @@ public class RoomCommand {
     private final AccountService accountService;
 
     @ShellMethod(value = "create a room", key = "create room")
-    public String createMovie(String name, int rows , int columns) {
+    public String createMovie(String name, int rows, int columns) {
         try {
             accountService.isAdmin();
             try {
@@ -35,7 +35,7 @@ public class RoomCommand {
     }
 
     @ShellMethod(value = "update a room", key = "update room")
-    public String updateRoom(String name, int rows , int columns) {
+    public String updateRoom(String name, int rows, int columns) {
         try {
             accountService.isAdmin();
             try {
