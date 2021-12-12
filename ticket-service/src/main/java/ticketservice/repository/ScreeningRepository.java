@@ -16,8 +16,4 @@ public interface ScreeningRepository extends JpaRepository<Screening, Long> {
 
     boolean existsByMovieAndRoomAndDate(String movie, String room, LocalDateTime date);
 
-    boolean existsByDateAndRoom(LocalDateTime date, String room);
-
-
-
 }

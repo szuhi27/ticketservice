@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ticketservice.exception.AlreadyExistsException;
 import ticketservice.exception.DoesNotExistsException;
-import ticketservice.model.Movie;
 import ticketservice.model.Room;
 import ticketservice.repository.RoomRepository;
 
