@@ -26,10 +26,10 @@ public class MovieServiceTest {
     private MovieRepository movieRepository;
 
     @InjectMocks
-    MovieService movieService;
+    private MovieService movieService;
 
     @BeforeEach
-    void initMovie(){
+    void initMovie() {
         testMovie = Movie.builder()
                 .title("testTitle")
                 .genre("testGenre")
@@ -100,7 +100,7 @@ public class MovieServiceTest {
     }
 
     @Test
-    public void testListMovie() throws DoesNotExistsException{
+    public void testListMovie() {
         List<Movie> expectList = List.of(testMovie);
 
         when(movieRepository.findAll()).thenReturn(expectList);
