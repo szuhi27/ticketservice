@@ -1,16 +1,9 @@
 package ticketservice.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.Hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
 
@@ -19,8 +12,10 @@ import java.util.Objects;
 @Builder
 @Getter
 @Setter
+@RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
+//@Data
 public class Movie {
 
     @Id
@@ -36,14 +31,22 @@ public class Movie {
         return title + " (" + genre + ", " + length + " minutes)";
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(title, length, genre);
-    }
-
     public Movie(String title, String genre, int length) {
         this.title = title;
         this.genre = genre;
         this.length = length;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Movie movie = (Movie) o;
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

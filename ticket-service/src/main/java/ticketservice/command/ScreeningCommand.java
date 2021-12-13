@@ -30,7 +30,7 @@ public class ScreeningCommand {
         } catch (NotAdminException b) {
             return b.getMessage();
         }
-        return new String("Screening created");
+        return "Screening created";
     }
 
     @ShellMethod(value = "delete a screening", key = "delete screening")
@@ -46,7 +46,7 @@ public class ScreeningCommand {
         } catch (NotAdminException e) {
             return e.getMessage();
         }
-        return new String("Screening deleted");
+        return "Screening deleted";
     }
 
     @ShellMethod(value = "delete a screening", key = "list screenings")

@@ -1,26 +1,21 @@
 package ticketservice.model;
 
+import lombok.*;
+import org.hibernate.Hibernate;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Table(name = "screening")
 @Builder
 @Getter
 @Setter
+@RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 public class Screening {
 
     @Id
@@ -37,4 +32,16 @@ public class Screening {
             + date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Screening screening = (Screening) o;
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

@@ -30,7 +30,7 @@ public class MovieCommand {
         } catch (NotAdminException b) {
             return b.getMessage();
         }
-        return new String(title + " movie created");
+        return title + " movie created";
     }
 
     @ShellMethod(value = "update a movie", key = "update movie")
@@ -47,7 +47,7 @@ public class MovieCommand {
         } catch (NotAdminException e) {
             return e.getMessage();
         }
-        return new String(title + " movie updated");
+        return title + " movie updated";
     }
 
     @ShellMethod(value = "delete a movie", key = "delete movie")
@@ -62,7 +62,7 @@ public class MovieCommand {
         } catch (NotAdminException e) {
             return e.getMessage();
         }
-        return new String(title + " movie deleted");
+        return title + " movie deleted";
     }
 
     @ShellMethod(value = "delete a movie", key = "list movies")

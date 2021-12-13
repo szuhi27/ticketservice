@@ -6,7 +6,6 @@ import org.springframework.shell.standard.ShellMethod;
 import ticketservice.exception.AlreadyExistsException;
 import ticketservice.exception.DoesNotExistsException;
 import ticketservice.exception.NotAdminException;
-import ticketservice.model.Movie;
 import ticketservice.model.Room;
 import ticketservice.service.AccountService;
 import ticketservice.service.RoomService;
@@ -19,7 +18,7 @@ public class RoomCommand {
     private final AccountService accountService;
 
     @ShellMethod(value = "create a room", key = "create room")
-    public String createMovie(String name, int rows, int columns) {
+    public String createRoom(String name, int rows, int columns) {
         try {
             accountService.isAdmin();
             try {
@@ -31,7 +30,7 @@ public class RoomCommand {
         } catch (NotAdminException b) {
             return b.getMessage();
         }
-        return new String(name + " room created");
+        return name + " room created";
     }
 
     @ShellMethod(value = "update a room", key = "update room")
@@ -48,7 +47,7 @@ public class RoomCommand {
         } catch (NotAdminException e) {
             return e.getMessage();
         }
-        return new String(name + " room updated");
+        return name + " room updated";
     }
 
     @ShellMethod(value = "delete a room", key = "delete room")
@@ -63,7 +62,7 @@ public class RoomCommand {
         } catch (NotAdminException e) {
             return e.getMessage();
         }
-        return new String(name + " room deleted");
+        return name + " room deleted";
     }
 
     @ShellMethod(value = "delete a room", key = "list rooms")

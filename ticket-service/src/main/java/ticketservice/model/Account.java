@@ -1,29 +1,21 @@
 package ticketservice.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.Data;
+import lombok.*;
+import org.hibernate.Hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
-
 
 
 @Entity
 @Table(name = "account")
-@Data
+@ToString
+@RequiredArgsConstructor
 @Builder
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 public class Account {
 
     @Id
@@ -40,8 +32,16 @@ public class Account {
         this.accountRole = role;
     }
 
-    /*@Override
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Account account = (Account) o;
+        return false;
+    }
+
+    @Override
     public int hashCode() {
-        return Objects.hash(username, passw);
-    }*/
+        return getClass().hashCode();
+    }
 }

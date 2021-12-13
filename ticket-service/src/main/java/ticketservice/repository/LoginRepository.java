@@ -6,4 +6,6 @@ import ticketservice.model.Login;
 
 public interface LoginRepository extends JpaRepository<Login, Long> {
     Login findByRole(AccountRole role);
+
+    boolean existsByRole(AccountRole role);
 }

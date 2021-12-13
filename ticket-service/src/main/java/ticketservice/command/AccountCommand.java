@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import ticketservice.exception.DoesNotExistsException;
-import ticketservice.model.Movie;
 import ticketservice.service.AccountService;
 
 @ShellComponent
@@ -20,7 +19,7 @@ public class AccountCommand {
         } catch (DoesNotExistsException e) {
             return e.getMessage();
         }
-        return new String(uname + " logged in");
+        return uname + " logged in";
     }
 
     @ShellMethod(value = "sing out", key = "sign out")
@@ -30,7 +29,7 @@ public class AccountCommand {
         } catch (DoesNotExistsException e) {
             return e.getMessage();
         }
-        return new String("signed out");
+        return "signed out";
     }
 
     @ShellMethod(value = "descr acc",key = "describe account")

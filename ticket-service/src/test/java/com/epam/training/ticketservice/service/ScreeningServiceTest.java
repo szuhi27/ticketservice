@@ -26,11 +26,10 @@ import static org.mockito.Mockito.*;
 public class ScreeningServiceTest {
 
     private Screening testScreening;
-    private List<Screening> testList, testListBad;
+    private List<Screening> testList;
     private Movie testMovie;
-    private LocalDateTime testDate;
+    private LocalDateTime date;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
 
     @Mock
     private ScreeningRepository screeningRepository;
@@ -45,10 +44,8 @@ public class ScreeningServiceTest {
 
     @BeforeEach
     void initScreening() {
-        LocalDateTime date = LocalDateTime.parse("2021-03-14 16:00", formatter);
+        date = LocalDateTime.parse("2021-03-14 16:00", formatter);
         LocalDateTime date2 = LocalDateTime.parse("2021-01-01 16:00", formatter);
-
-        testDate = LocalDateTime.parse("2000-01-01 16:00", formatter);
 
         testScreening = Screening.builder()
                 .movie("testMovie")
@@ -60,12 +57,6 @@ public class ScreeningServiceTest {
                 .movie("testMovie")
                 .room("testRoom")
                 .date(date2)
-                .build());
-
-        testListBad = List.of(Screening.builder()
-                .movie("testMovie")
-                .room("testRoom")
-                .date(date)
                 .build());
 
         testMovie = Movie.builder()
@@ -90,6 +81,11 @@ public class ScreeningServiceTest {
 
     @Test
     public void testCreateScreeningShouldThrowDNEExc() {
+        List<Screening> testListBad = List.of(Screening.builder()
+                .movie("testMovie")
+                .room("testRoom")
+                .date(date)
+                .build());
 
         when(movieRepository.existsByTitle(testScreening.getMovie())).thenReturn(true);
         when(roomRepository.existsByName(testScreening.getRoom())).thenReturn(true);

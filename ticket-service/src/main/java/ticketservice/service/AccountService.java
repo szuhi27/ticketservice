@@ -1,7 +1,6 @@
 package ticketservice.service;
 
 import lombok.RequiredArgsConstructor;
-import org.jline.utils.Log;
 import org.springframework.stereotype.Service;
 import ticketservice.exception.DoesNotExistsException;
 import ticketservice.exception.NotAdminException;
@@ -11,7 +10,6 @@ import ticketservice.model.Login;
 import ticketservice.repository.AccountRepository;
 import ticketservice.repository.LoginRepository;
 
-import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -53,8 +51,9 @@ public class AccountService {
     }
 
     public void isAdmin() throws NotAdminException {
-        Login login = loginRepository.findByRole(AccountRole.ADMIN);
-        if (login == null) {
+        //Login login = loginRepository.findByRole(AccountRole.ADMIN);
+        //if (login == null) {
+        if(!loginRepository.existsByRole(AccountRole.ADMIN)){
             throw new NotAdminException();
         }
     }
