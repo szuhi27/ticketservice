@@ -28,7 +28,6 @@ public class ScreeningServiceTest {
     private Screening testScreening;
     private List<Screening> testList;
     private Movie testMovie;
-    private LocalDateTime date;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @Mock
@@ -44,25 +43,22 @@ public class ScreeningServiceTest {
 
     @BeforeEach
     void initScreening() {
-        date = LocalDateTime.parse("2021-03-14 16:00", formatter);
-        LocalDateTime date2 = LocalDateTime.parse("2021-01-01 16:00", formatter);
-
         testScreening = Screening.builder()
                 .movie("testMovie")
                 .room("testRoom")
-                .date(date)
+                .date(LocalDateTime.parse("2021-03-14 16:00", formatter))
                 .build();
 
         testList = List.of(Screening.builder()
                 .movie("testMovie")
                 .room("testRoom")
-                .date(date2)
+                .date(LocalDateTime.parse("2021-01-01 16:00", formatter))
                 .build());
 
         testMovie = Movie.builder()
                 .title("testMovie")
                 .genre("testGenre")
-                .length(5)
+                .length(50)
                 .build();
     }
 
@@ -80,11 +76,11 @@ public class ScreeningServiceTest {
     }
 
     @Test
-    public void testCreateScreeningShouldThrowDNEExc() {
+    public void testCreateScreeningShouldThrowDNEExcWrongTimeBefore() {
         List<Screening> testListBad = List.of(Screening.builder()
                 .movie("testMovie")
                 .room("testRoom")
-                .date(date)
+                .date(LocalDateTime.parse("2021-03-14 15:55", formatter))
                 .build());
 
         when(movieRepository.existsByTitle(testScreening.getMovie())).thenReturn(true);
@@ -95,6 +91,43 @@ public class ScreeningServiceTest {
         assertThrows(DoesNotExistsException.class, () -> screeningService.createScreening(testScreening));
         verify(screeningRepository, times(0)).save(testScreening);
 
+    }
+
+    @Test
+    public void testCreateScreeningShouldThrowDNEExcWrongTimeAfter() {
+        List<Screening> testListBad = List.of(Screening.builder()
+                .movie("testMovie")
+                .room("testRoom")
+                .date(LocalDateTime.parse("2021-03-14 16:05", formatter))
+                .build());
+
+        when(movieRepository.existsByTitle(testScreening.getMovie())).thenReturn(true);
+        when(roomRepository.existsByName(testScreening.getRoom())).thenReturn(true);
+        when(screeningRepository.findAll()).thenReturn(testListBad);
+        when(movieRepository.findByTitle(testMovie.getTitle())).thenReturn(testMovie);
+
+        assertThrows(DoesNotExistsException.class, () -> screeningService.createScreening(testScreening));
+        verify(screeningRepository, times(0)).save(testScreening);
+
+    }
+
+    @Test
+    public void testCreateScreeningShouldThrowDNNEExcNoMovie() {
+
+        when(movieRepository.existsByTitle(testScreening.getMovie())).thenReturn(false);
+
+        assertThrows(DoesNotExistsException.class, () -> screeningService.createScreening(testScreening));
+        verify(screeningRepository, times(0)).save(testScreening);
+    }
+
+    @Test
+    public void testCreateScreeningShouldThrowDNNEExcNoRoom() {
+
+        when(movieRepository.existsByTitle(testScreening.getMovie())).thenReturn(true);
+        when(roomRepository.existsByName(testScreening.getRoom())).thenReturn(false);
+
+        assertThrows(DoesNotExistsException.class, () -> screeningService.createScreening(testScreening));
+        verify(screeningRepository, times(0)).save(testScreening);
     }
 
     @Test

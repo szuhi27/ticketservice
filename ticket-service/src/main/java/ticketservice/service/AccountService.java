@@ -53,7 +53,7 @@ public class AccountService {
     public void isAdmin() throws NotAdminException {
         //Login login = loginRepository.findByRole(AccountRole.ADMIN);
         //if (login == null) {
-        if(!loginRepository.existsByRole(AccountRole.ADMIN)){
+        if (!loginRepository.existsByRole(AccountRole.ADMIN)) {
             throw new NotAdminException();
         }
     }

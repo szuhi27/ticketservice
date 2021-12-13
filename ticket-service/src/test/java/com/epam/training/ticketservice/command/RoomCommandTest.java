@@ -9,7 +9,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ticketservice.command.RoomCommand;
 import ticketservice.exception.AlreadyExistsException;
 import ticketservice.exception.DoesNotExistsException;
-import ticketservice.model.Movie;
 import ticketservice.model.Room;
 import ticketservice.repository.RoomRepository;
 import ticketservice.service.AccountService;
@@ -56,7 +55,7 @@ public class RoomCommandTest {
     }
 
     @Test
-    public void testCreateMovie() throws AlreadyExistsException {
+    public void testCreateRoom() throws AlreadyExistsException {
         // Given
         // When
         when(roomService.roomCreator(name, rows, columns)).thenReturn(testRoom);
@@ -67,7 +66,7 @@ public class RoomCommandTest {
     }
 
     @Test
-    public void testCreateMovieShouldNotCreate() throws AlreadyExistsException {
+    public void testCreateRoomShouldNotCreate() throws AlreadyExistsException {
 
         when(roomService.roomCreator(name, rows, columns)).thenReturn(testRoom);
         doThrow(AlreadyExistsException.class).when(roomService).createRoom(any(Room.class));
@@ -77,7 +76,7 @@ public class RoomCommandTest {
     }
 
     @Test
-    public void testUpdateMovie() throws DoesNotExistsException {
+    public void testUpdateRoom() throws DoesNotExistsException {
 
         when(roomService.roomCreator(name, rows, columns)).thenReturn(testRoom);
         roomCommand.updateRoom(name, rows, columns);
@@ -86,7 +85,7 @@ public class RoomCommandTest {
     }
 
     @Test
-    public void testUpdateMovieShouldNotUpdate() throws DoesNotExistsException {
+    public void testUpdateRoomShouldNotUpdate() throws DoesNotExistsException {
 
         when(roomService.roomCreator(name, rows, columns)).thenReturn(testRoom);
         doThrow(DoesNotExistsException.class).when(roomService).updateRoom(any(Room.class));
@@ -96,7 +95,7 @@ public class RoomCommandTest {
     }
 
     @Test
-    public void testDeleteMovie() throws DoesNotExistsException {
+    public void testDeleteRoom() throws DoesNotExistsException {
 
         roomCommand.deleteRoom(name);
 
@@ -104,7 +103,7 @@ public class RoomCommandTest {
     }
 
     @Test
-    public void testDeleteMovieShouldNotDelete() throws DoesNotExistsException {
+    public void testDeleteRoomShouldNotDelete() throws DoesNotExistsException {
 
         doThrow(DoesNotExistsException.class).when(roomService).deleteRoom(name);
         roomCommand.deleteRoom(name);
@@ -113,7 +112,7 @@ public class RoomCommandTest {
     }
 
     @Test
-    public void testListMovie() {
+    public void testListRoom() {
         String exp = testRoom + "\n" + testRoom;
 
         when(roomService.listRooms()).thenReturn(List.of(testRoom, testRoom));
@@ -123,7 +122,7 @@ public class RoomCommandTest {
     }
 
     @Test
-    public void testListMovieShouldReturnErrorMsg() {
+    public void testListRoomShouldReturnErrorMsg() {
         String errMsg = "There are no rooms at the moment";
 
         when(roomService.listRooms()).thenReturn(Collections.emptyList());
