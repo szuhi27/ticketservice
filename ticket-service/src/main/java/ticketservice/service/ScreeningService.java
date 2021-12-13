@@ -36,7 +36,7 @@ public class ScreeningService {
     }
 
     public void createScreening(Screening s) throws DoesNotExistsException {
-        String st = checkScreening(s.getMovie(), s.getRoom(), s.getDate());
+        String st = checkScreeningErrorMsg(s.getMovie(), s.getRoom(), s.getDate());
         if (Objects.equals(st, "")) {
             screeningRepository.save(s);
         } else {
@@ -44,7 +44,7 @@ public class ScreeningService {
         }
     }
 
-    private String  checkScreening(String movie, String room, LocalDateTime date) {
+    private String checkScreeningErrorMsg(String movie, String room, LocalDateTime date) {
         String msg = "";
         if (!movieRepository.existsByTitle(movie)) {
             msg = "Movie " + movie + " does not exist!";
