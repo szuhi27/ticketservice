@@ -5,9 +5,15 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import ticketservice.exception.DoesNotExistsException;
 import ticketservice.exception.NotAdminException;
+import ticketservice.model.Movie;
 import ticketservice.model.Screening;
 import ticketservice.service.AccountService;
+import ticketservice.service.MovieService;
 import ticketservice.service.ScreeningService;
+
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Objects;
 
 
 @ShellComponent
@@ -16,6 +22,7 @@ public class ScreeningCommand {
 
     private final ScreeningService screeningService;
     private final AccountService accountService;
+    private final MovieService movieService;
 
     @ShellMethod(value = "create a screening", key = "create screening")
     public String createScreening(String movie, String room, String date) {
@@ -54,12 +61,39 @@ public class ScreeningCommand {
         StringBuilder sb = new StringBuilder();
 
         if (!screeningService.listScreenings().isEmpty()) {
-            screeningService.listScreenings().forEach(x -> sb.append(x).append("\n"));
+            List<Movie> movieList = movieService.listMovies();
+            Movie[] allMovie = new Movie[movieList.size()];
+            movieList.toArray(allMovie);
+
+            List<Screening> screeningList = screeningService.listScreenings();
+            Screening[] allScr = new Screening[screeningList.size()];
+            screeningList.toArray(allScr);
+
+            for(int i = 0; i < allScr.length; i++){
+                String line = "";
+                Movie mov = currentMovie(allMovie, allScr[i].getMovie());
+
+                line =  mov.getTitle() + " (" + mov.getGenre() + ", " + mov.getLength() + " minutes), "
+                        + "screened in room " + allScr[i].getRoom() + ", at "
+                        + allScr[i].getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                sb.append(line).append("\n");
+            }
             sb.setLength(sb.length() - 1);
             return sb.toString();
         } else {
-            return "There are no screenings at the moment";
+            return "There are no screenings";
         }
+    }
+
+    private Movie currentMovie(Movie[] movieArr, String  currentMovie){
+        Movie movie = new Movie();
+        for(int i = 0; i < movieArr.length; i++){
+            if(Objects.equals(movieArr[i].getTitle(), currentMovie)){
+                movie = movieArr[i];
+                break;
+            }
+        }
+        return movie;
     }
 
 }

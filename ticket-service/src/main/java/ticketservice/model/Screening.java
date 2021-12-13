@@ -15,7 +15,6 @@ import java.util.Objects;
 @Setter
 @RequiredArgsConstructor
 @AllArgsConstructor
-//@NoArgsConstructor
 public class Screening {
 
     @Id

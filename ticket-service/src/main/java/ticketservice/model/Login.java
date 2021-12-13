@@ -4,7 +4,6 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "login")
@@ -14,7 +13,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @AllArgsConstructor
-//@NoArgsConstructor
 public class Login {
 
     @Id

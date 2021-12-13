@@ -46,7 +46,7 @@ public class AccountService {
         if (login == null) {
             return new String("You are not signed in");
         } else {
-            return new String("Signed in with privileged account " + login.getUname());
+            return new String("Signed in with privileged account '" + login.getUname() + "'");
         }
     }
 

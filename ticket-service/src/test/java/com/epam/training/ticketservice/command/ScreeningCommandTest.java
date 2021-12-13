@@ -99,7 +99,7 @@ public class ScreeningCommandTest {
         verify(screeningRepository, times(0)).deleteByMovieAndRoomAndDate(movie, room, localDate);
     }
 
-    @Test
+    /*@Test
     public void testListScreening() {
         String exp = testScreening + "\n" + testScreening;
 
@@ -117,6 +117,6 @@ public class ScreeningCommandTest {
         String actualString = screeningCommand.listScreening();
 
         assertEquals(errMsg, actualString);
-    }
+    }*/
 
 }

@@ -4,7 +4,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.Objects;
+
 
 
 @Entity
@@ -14,8 +14,6 @@ import java.util.Objects;
 @Setter
 @RequiredArgsConstructor
 @AllArgsConstructor
-//@NoArgsConstructor
-//@Data
 public class Movie {
 
     @Id

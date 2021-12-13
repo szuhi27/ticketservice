@@ -15,7 +15,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @AllArgsConstructor
-//@NoArgsConstructor
 public class Account {
 
     @Id
